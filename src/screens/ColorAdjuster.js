@@ -25,6 +25,8 @@ const ColorAdjuster = () => {
           ? null
           : setBlue(blue + change);
         return;
+      default:
+        return;
     }
   };
 
