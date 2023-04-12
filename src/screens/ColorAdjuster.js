@@ -9,20 +9,21 @@ const COLOR_DECREMENT = -10;
 const initialState = { red: 0, green: 0, blue: 0 };
 
 const reducer = (state, action) => {
-  switch (action.colorToChange) {
-    case "red":
-      return state.red + action.amount > 255 || state.red + action.amount < 0
+  switch (action.type) {
+    case "change_red":
+      return state.red + action.payload > 255 || state.red + action.payload < 0
         ? state
-        : { ...state, red: state.red + action.amount };
-    case "green":
-      return state.green + action.amount > 255 ||
-        state.green + action.amount < 0
+        : { ...state, red: state.red + action.payload };
+    case "change_green":
+      return state.green + action.payload > 255 ||
+        state.green + action.payload < 0
         ? state
-        : { ...state, green: state.green + action.amount };
-    case "blue":
-      return state.blue + action.amount > 255 || state.blue + action.amount < 0
+        : { ...state, green: state.green + action.payload };
+    case "change_blue":
+      return state.blue + action.payload > 255 ||
+        state.blue + action.payload < 0
         ? state
-        : { ...state, blue: state.blue + action.amount };
+        : { ...state, blue: state.blue + action.payload };
     default:
       return state;
   }
@@ -35,29 +36,25 @@ const ColorAdjuster = () => {
     <View>
       <ColorControl
         color="Red"
-        onAdd={() =>
-          dispatch({ colorToChange: "red", amount: COLOR_INCREMENT })
-        }
-        onSub={() =>
-          dispatch({ colorToChange: "red", amount: COLOR_DECREMENT })
-        }
+        onAdd={() => dispatch({ type: "change_red", payload: COLOR_INCREMENT })}
+        onSub={() => dispatch({ type: "change_red", payload: COLOR_DECREMENT })}
       />
       <ColorControl
         color="Green"
         onAdd={() =>
-          dispatch({ colorToChange: "green", amount: COLOR_INCREMENT })
+          dispatch({ type: "change_green", payload: COLOR_INCREMENT })
         }
         onSub={() =>
-          dispatch({ colorToChange: "green", amount: COLOR_DECREMENT })
+          dispatch({ type: "change_green", payload: COLOR_DECREMENT })
         }
       />
       <ColorControl
         color="Blue"
         onAdd={() =>
-          dispatch({ colorToChange: "blue", amount: COLOR_INCREMENT })
+          dispatch({ type: "change_blue", payload: COLOR_INCREMENT })
         }
         onSub={() =>
-          dispatch({ colorToChange: "blue", amount: COLOR_DECREMENT })
+          dispatch({ type: "change_blue", payload: COLOR_DECREMENT })
         }
       />
       <View
