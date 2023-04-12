@@ -4,63 +4,55 @@ import React, { useState } from "react";
 import ColorControl from "../components/ColorControl";
 
 const ColorAdjuster = () => {
-  const [red, setRed] = useState(255);
-  const [green, setGreen] = useState(255);
-  const [blue, setBlue] = useState(255);
+  const [red, setRed] = useState(0);
+  const [green, setGreen] = useState(0);
+  const [blue, setBlue] = useState(0);
 
-  const increaseRed = () => {
-    if (red <= 245) {
-      setRed(red + 10);
+  const COLOR_INCREMENT = 10;
+
+  const setColor = (color, change) => {
+    if (color === "red") {
+      if (red + change > 255 || red + change < 0) {
+        return;
+      } else {
+        setRed(red + change);
+      }
     }
 
-    return;
-  };
-
-  const increaseGreen = () => {
-    if (green <= 245) {
-      setGreen(green + 10);
+    if (color === "green") {
+      if (green + change > 255 || green + change < 0) {
+        return;
+      } else {
+        setGreen(green + change);
+      }
     }
 
-    return;
-  };
-
-  const increaseBlue = () => {
-    if (blue <= 245) {
-      setBlue(blue + 10);
+    if (color === "blue") {
+      if (blue + change > 255 || blue + change < 0) {
+        return;
+      } else {
+        setBlue(blue + change);
+      }
     }
-
-    return;
-  };
-
-  const decreaseRed = () => {
-    if (red >= 10) {
-      setRed(red - 10);
-    }
-
-    return;
-  };
-
-  const decreaseGreen = () => {
-    if (green >= 10) {
-      setGreen(green - 10);
-    }
-
-    return;
-  };
-
-  const decreaseBlue = () => {
-    if (blue >= 10) {
-      setBlue(blue - 10);
-    }
-
-    return;
   };
 
   return (
     <View>
-      <ColorControl color="Red" onAdd={increaseRed} onSub={decreaseRed} />
-      <ColorControl color="Green" onAdd={increaseGreen} onSub={decreaseGreen} />
-      <ColorControl color="Blue" onAdd={increaseBlue} onSub={decreaseBlue} />
+      <ColorControl
+        color="Red"
+        onAdd={() => setColor("red", COLOR_INCREMENT)}
+        onSub={() => setColor("red", -1 * COLOR_INCREMENT)}
+      />
+      <ColorControl
+        color="Green"
+        onAdd={() => setColor("green", COLOR_INCREMENT)}
+        onSub={() => setColor("green", -1 * COLOR_INCREMENT)}
+      />
+      <ColorControl
+        color="Blue"
+        onAdd={() => setColor("blue", COLOR_INCREMENT)}
+        onSub={() => setColor("blue", -1 * COLOR_INCREMENT)}
+      />
       <View
         style={{
           width: 100,
