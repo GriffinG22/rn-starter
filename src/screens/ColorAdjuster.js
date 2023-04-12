@@ -1,51 +1,57 @@
 import { View } from "react-native";
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 
 import ColorControl from "../components/ColorControl";
 
+const COLOR_INCREMENT = 10;
+const COLOR_DECREMENT = -10;
+
+const initialState = { red: 0, green: 0, blue: 0 };
+
+const reducer = (state, action) => {
+  switch (action.colorToChange) {
+    case "red":
+      return { ...state, red: state.red + action.amount };
+    case "green":
+      return { ...state, green: state.green + action.amount };
+    case "blue":
+      return { ...state, blue: state.blue + action.amount };
+    default:
+      return state;
+  }
+};
+
 const ColorAdjuster = () => {
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(0);
-  const [blue, setBlue] = useState(0);
-
-  const COLOR_INCREMENT = 10;
-
-  const setColor = (color, change) => {
-    switch (color) {
-      case "red":
-        red + change > 255 || red + change < 0 ? null : setRed(red + change);
-        return;
-      case "green":
-        green + change > 255 || green + change < 0
-          ? null
-          : setGreen(green + change);
-        return;
-      case "blue":
-        blue + change > 255 || blue + change < 0
-          ? null
-          : setBlue(blue + change);
-        return;
-      default:
-        return;
-    }
-  };
+  const [{ red, green, blue }, dispatch] = useReducer(reducer, initialState);
 
   return (
     <View>
       <ColorControl
         color="Red"
-        onAdd={() => setColor("red", COLOR_INCREMENT)}
-        onSub={() => setColor("red", -1 * COLOR_INCREMENT)}
+        onAdd={() =>
+          dispatch({ colorToChange: "red", amount: COLOR_INCREMENT })
+        }
+        onSub={() =>
+          dispatch({ colorToChange: "red", amount: COLOR_DECREMENT })
+        }
       />
       <ColorControl
         color="Green"
-        onAdd={() => setColor("green", COLOR_INCREMENT)}
-        onSub={() => setColor("green", -1 * COLOR_INCREMENT)}
+        onAdd={() =>
+          dispatch({ colorToChange: "green", amount: COLOR_INCREMENT })
+        }
+        onSub={() =>
+          dispatch({ colorToChange: "green", amount: COLOR_DECREMENT })
+        }
       />
       <ColorControl
         color="Blue"
-        onAdd={() => setColor("blue", COLOR_INCREMENT)}
-        onSub={() => setColor("blue", -1 * COLOR_INCREMENT)}
+        onAdd={() =>
+          dispatch({ colorToChange: "blue", amount: COLOR_INCREMENT })
+        }
+        onSub={() =>
+          dispatch({ colorToChange: "blue", amount: COLOR_DECREMENT })
+        }
       />
       <View
         style={{
