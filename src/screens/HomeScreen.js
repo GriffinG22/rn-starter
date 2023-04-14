@@ -29,6 +29,10 @@ const HomeScreen = ({ navigation }) => {
         title="Go To Color Adjuster Screen"
         onPress={() => navigation.navigate("ColorAdjuster")}
       />
+      <Button
+        title="Go To Text Input Screen"
+        onPress={() => navigation.navigate("TextInputScreen")}
+      />
     </View>
   );
 };
