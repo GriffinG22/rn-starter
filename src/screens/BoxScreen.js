@@ -4,27 +4,35 @@ import React from "react";
 const BoxScreen = () => {
   return (
     <View style={styles.viewStyle}>
-      <Text style={styles.textStyle}>BoxScreen 1</Text>
-      <Text style={styles.textStyle}>BoxScreen 2</Text>
-      <Text style={styles.textStyle}>BoxScreen 3</Text>
+      <View style={styles.viewStyleOne}></View>
+      <View style={styles.viewStyleTwo}></View>
+      <View style={styles.viewStyleThree}></View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   viewStyle: {
-    borderWidth: 3,
-    borderColor: "black",
-    height: 200,
-    margin: 10,
+    height: 120,
+    width: 390,
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
   },
-  textStyle: {
-    borderWidth: 3,
-    borderColor: "red",
-    textAlign: "center",
+  viewStyleOne: {
+    height: 40,
+    width: 60,
+    backgroundColor: "red",
+  },
+  viewStyleTwo: {
+    height: 40,
+    width: 60,
+    backgroundColor: "green",
+    top: 40,
+  },
+  viewStyleThree: {
+    height: 40,
+    width: 60,
+    backgroundColor: "purple",
   },
 });
 
